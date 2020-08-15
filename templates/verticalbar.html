@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VerticalBar</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+ 
+
+<hr>
+<h2>1001745502</h2>
+    <h2>Aditee Dakhane</h2>
+    <br>
+
+
+ <form action="/verticalbar" method="get">
+ Display Vertical Bar
+ Country Name <input type="text" name="country" maxlength="100" width="50" value="Japan">
+  <input type="submit" value="submit">
+  <figure class="highcharts-figure">
+    <div id="container"></div>
+</figure>
+</form><br>
+
+VOLCANOS: {{vol}}<br><br>
+ELEVATIONS: {{elev}}
+
+<script>
+    Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Volcanos'
+    },
+    xAxis: {
+        categories: (function () {
+            var categories = [];
+            var resultvol=[];
+            var i =0;
+            var v=0;
+           
+            vol='{{vol}}'.split(',');
+            for(i=0; i<vol.length; i++){
+                resultvol.push(vol[i])
+            }
+            console.log(typeof(resultvol));
+            while(v <= resultvol.length){
+                 categories.push([resultvol[v]]);
+                 v++;
+            }
+            return categories;
+        }()),
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Elevations (hundreds)'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        data: (function () {
+            var data = [];
+            var resultvol=[];
+            var resultelev=[];
+
+            var i =0;
+            var j =0;
+            var v=0;
+            var e=0;
+
+            vol='{{vol}}'.split(',');
+            for(i=0; i<vol.length; i++){
+                resultvol.push(vol[i])
+            }
+            console.log(typeof(resultvol));
+            
+            elev= '{{elev}}'.split(',');
+            for(j=0; j<elev.length; j++){
+                resultelev.push(parseFloat(elev[j]))
+            }
+            console.log(typeof(resultelev));
+
+            console.log ('vollength',resultvol.length)
+            console.log('elevlength',resultelev.length)
+
+            
+            while(v <= resultvol.length && e<=resultelev.length){
+                 data.push([resultvol[v] ,resultelev[e]]);
+                 v++;
+                 e++;
+            }
+            return data;
+        }())
+
+    }]
+});
+    
+
+</script>
+
+
+</body>
+</html>

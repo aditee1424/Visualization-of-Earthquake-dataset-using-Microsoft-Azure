@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quakes within given distance</title>
+</head>
+<body>
+<h2>Earthquake information retrieval system</h2>
+
+<hr>
+<h2>1001745502</h2>
+    <h2>Aditee Dakhane</h2>
+    <br>
+ <form action="/quakes_within_distance" method="get">
+  Quakes occurred within x kilometer of city y in the last 30 days. Please input distance and city: <br>
+  Distance: <input type="distance" name="distance" maxlength="200" width="60">
+  City: <input type="city" name="city" maxlength="200" width="60">
+  <input type="submit" value="submit">
+</form>
+<h2>Total No of EarthQuakes: {{count}}</h2>
+{% if elapsetime %}
+           <h4>select successful. Time eplased: {{elapsetime}} second</h4>
+           {% endif %}
+
+<table border = 1>
+
+    <!--database rows are fetched-->
+             {% for r in cols %}
+      <tr>
+                <td>{{r["time"]}}</td>
+                <td>{{r["latitude"]}}</td>
+                <td> {{r["longitude"]}}</td>
+                <td>{{r['depth']}}</td>
+                <td>{{r['mag']}}</td>
+              <td>{{r['magType']}}</td>
+              <td>{{r['nst']}}</td>
+              <td>{{r['gap']}}</td>
+              <td>{{r['dmin']}}</td>
+               <td>{{r['rms']}}</td>
+               <td>{{r['net']}}</td>
+               <td>{{r['id']}}</td>
+              <td>{{r['updated']}}</td>
+              <td>{{r['place']}}</td>
+              <td>{{r['type']}}</td>
+              <td>{{r['horizontalError']}}</td>
+              <td>{{r['depthError']}}</td>
+              <td>{{r['magError']}}</td>
+              <td>{{r['magNst']}}</td>
+              <td>{{r['status']}}</td>
+              <td>{{r['locationSource']}}</td>
+              <td>{{r['magSource']}}</td>
+             </tr>
+             {% endfor %}
+          </table>
+</body>
+</html>

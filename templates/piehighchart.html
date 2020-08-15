@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PieHighChart</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+<h2>Earthquake information retrieval system</h2>
+
+<hr>
+<h2>1001745502</h2>
+    <h2>Aditee Dakhane</h2>
+    <br>
+
+
+ <form action="/piechart" method="get">
+ Show Pie Chart for Magnitude slots: below 1, 1-2, 2-3, 3-4, 4-5
+  <input type="submit" value="submit">
+  <figure class="highcharts-figure">
+    <div id="container"></div>
+</figure>
+</form>
+
+
+<h2>Count of Earthquakes in each slots:</h2>
+count01 : {{count01}} <br>
+count12 : {{count12}} <br>
+count23 : {{count23}} <br>
+count34 : {{count34}} <br>
+count45 : {{count45}} <br>
+
+
+
+<script type="text/javascript">
+ // Create the chart
+ Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Magnitude Slots for Earthquakes'
+    },
+    series: [{
+        name: 'Slots',
+        colorByPoint: true,
+        data: [{
+            name: 'Slot01',
+            y: parseInt('{{count01}}'),
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Slot12',
+            y:parseInt('{{count12}}'),
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Slot23',
+            y: parseInt('{{count23}}'),
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Slot34',
+            y: parseInt('{{count34}}'),
+            sliced: true,
+            selected: true
+        }, {
+            name: 'Slot45',
+            y: parseInt('{{count45}}'),
+            sliced: true,
+            selected: true
+        }]
+    }]
+});
+</script>
+
+</body>
+</html>

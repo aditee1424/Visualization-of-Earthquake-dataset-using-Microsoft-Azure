@@ -1,0 +1,35 @@
+<html>
+    <body>
+        <h1>Aditee Dakhane</h1>
+        <h2>1001745502</h2>
+        <form action="{{ url_for('insert') }}" method="get">
+            Insert Earthquake data<br>
+            time: <input type="text" name="time" maxlength="200" width="60"> 
+            latitude: <input type="text" name="lat" maxlength="200" width="60"> 
+            longitude: <input type="text" name="lon" maxlength="200" width="60"> 
+            depth: <input type="text" name="depth" maxlength="200" width="60"> 
+            mag: <input type="text" name="mag" maxlength="200" width="60"> 
+            magtype: <input type="text" name="magtype" maxlength="200" width="60"> 
+            nst: <input type="text" name="nst" maxlength="200" width="60"> 
+            gap: <input type="text" name="gap" maxlength="200" width="60"> 
+            dmin: <input type="text" name="dmin" maxlength="200" width="60"> 
+            rms: <input type="text" name="rms" maxlength="200" width="60"> 
+            net: <input type="text" name="net" maxlength="200" width="60"> 
+            id: <input type="text" name="id" maxlength="200" width="60"> 
+            updated: <input type="text" name="updated" maxlength="200" width="60"> 
+            place: <input type="text" name="place" maxlength="200" width="60"> 
+            type: <input type="text" name="type" maxlength="200" width="60"> 
+            horizontalerror: <input type="text" name="he" maxlength="200" width="60"> 
+            deptherror: <input type="text" name="de" maxlength="200" width="60"> 
+            magerror: <input type="text" name="me" maxlength="200" width="60"> 
+            magnst: <input type="text" name="mn" maxlength="200" width="60"> 
+            status: <input type="text" name="status" maxlength="200" width="60"> 
+            locationsource: <input type="text" name="ls" maxlength="200" width="60"> 
+            magsource: <input type="text" name="ms" maxlength="200" width="60"> 
+            <input type="submit" name='method1' value="Insert">
+           </form>
+           {% if elapsetime %}
+           <h4>Insert successful. Time eplased: {{elapsetime}} second</h4>
+           {% endif %}
+    </body>
+</html>

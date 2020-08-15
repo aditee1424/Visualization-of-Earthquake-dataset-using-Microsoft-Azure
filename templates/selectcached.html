@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <h1>Aditee Dakhane</h1>
+        <h2>1001745502</h2>
+        <form action="{{ url_for('selectcached') }}" method="get">
+             Please input mag<br>
+             Magnitude: <input type="number" name="mag" maxlength="200" width="60" step="any"> 
+             Count:  <input type="number" name="count" maxlength="200" width="60">
+            <input type="submit" name='method1' value="RDB Calculate">
+        </form>
+            {% if elapsetime %}
+  <h4>Create successful. Time eplased: {{elapsetime}} second</h4>
+  {{data}}
+  {% endif %}
+  
+  <table border = 1>
+    <thead>
+    <th>MAG</th>
+    <th>PLACE</th>
+    </thead>
+<!--database rows are fetched-->
+         {% for r in rows %}
+          <tr>
+           
+            <td>{{r['mag']}}</td>
+          <td>{{r['place']}}</td>
+         </tr>
+         {% endfor %}
+      </table>
+
+    </body>
+</html>

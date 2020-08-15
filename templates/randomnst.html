@@ -1,0 +1,38 @@
+<html>
+    <body>
+        <h1>Aditee Dakhane</h1>
+        <h2>1001745502</h2>
+        <form action="{{ url_for('randomnst') }}" method="get">
+             Please insert ranges for nst<br>
+             Range1 (Lowest) <input type="number" name="range1" maxlength="200" width="60" step="any"> 
+             Range2 (Highest) <input type="number" name="range2" maxlength="200" width="60" step="any"> 
+            <input type="submit" name='submit' value="Submit">
+            {% if elapsetime %}
+  <h4>Create successful. Time eplased: {{elapsetime}} second</h4>
+  {% endif %}
+  <h3>Random generated value of NST within range is: {{nstnumber}}</h3>
+  
+  <table border = 1>
+    <thead>
+    <th>NST</th>
+    <th>LATITUDE</th>
+    <th>LONGITUDE</th>
+    <th>PLACE</th>
+    <th>MAG</th>
+    <th>ID</th>
+    </thead>
+<!--database rows are fetched-->
+         {% for r in rows %}
+          <tr>
+           
+            <td>{{r['nst']}}</td>
+          <td>{{r['latitude']}}</td>
+          <td>{{r['longitude']}}</td>
+          <td>{{r['place']}}</td>
+          <td>{{r['mag']}}</td>
+          <td>{{r['id']}}</td>
+         </tr>
+         {% endfor %}
+      </table>
+    </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PieVolcano</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+
+<hr>
+<h2>1001745502</h2>
+    <h2>Aditee Dakhane</h2>
+    <br>
+
+
+ <form action="/pievol" method="get">
+ Show Pie Chart for Population Range
+Eleveation Range1 (Lowest) <input type="number" name="range1" maxlength="150" width="50" step="any" value="200"> 
+Elevation Range2 (Highest) <input type="number" name="range2" maxlength="150" width="50" step="any" value="4000"> 
+Number of Slices <input type="number" name="slices" maxlength="150" width="50">
+  <input type="submit" value="submit">
+  <div id="piechart" style="width: 900px; height: 500px;"></div>
+</figure>
+</form>
+{{countarr}}
+<script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('countarr');
+        data.addRows(function () {
+        var data = [];
+        var resultcount=[];
+       
+
+        var i =0;
+        var j =0;
+
+        st='{{countarr}}'.split(',');
+        for(i=0; i<st.length; i++){
+            resultcount.push(st[i])
+        }
+        console.log(typeof(resultcount));
+
+        while(j < resultcount.length){
+             data.push([parseFloat(resultcount[j])]);
+             j++;
+        }
+        return data;
+    }());
+
+      var options = {
+        title: 'volcano'
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+      chart.draw(data, options);
+    }
+  </script>
+</body>
+</html>

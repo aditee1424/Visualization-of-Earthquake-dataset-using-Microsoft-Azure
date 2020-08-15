@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScatterVolcano</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+
+
+<hr>
+<h2>1001745502</h2>
+    <h2>Aditee Dakhane</h2>
+    <br>
+
+
+ <form action="/scattervol" method="get">
+ Display scatter plot
+ Volcano Number Range 1 <input type="number" name="range1" maxlength="200" width="60" value="6000">
+ Volcano Number Range 2 <input type="number" name="range2" maxlength="200" width="60" value="160000">
+  <input type="submit" value="submit">
+  <figure class="highcharts-figure">
+    <div id="container"></div>
+</figure>
+</form><br>
+
+ELEVATIONS: {{elev}}<br><br>
+NUMBERS: {{number}}
+
+<script>
+    Highcharts.chart('container', {
+    chart: {
+        type: 'scatter',
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'number VS elev'
+    },
+    subtitle: {
+        text: 'volcano'
+    },
+    xAxis: {
+        title: {
+            enabled: true,
+            text: 'number(in thousands)'
+        },
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true
+    },
+    yAxis: {
+        title: {
+            text: 'elev'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        floating: true,
+        backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
+        borderWidth: 1
+    },
+    plotOptions: {
+        scatter: {
+            marker: {
+                radius: 5,
+                states: {
+                    hover: {
+                        enabled: true,
+                        lineColor: 'rgb(100,100,100)'
+                    }
+                }
+            },
+            states: {
+                hover: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br>',
+                pointFormat: '{point.x} , {point.y} '
+            }
+        }
+    },
+    series: [{
+        name: 'volcano',
+        color: 'rgba(223, 83, 83, .5)',
+        data: (function () {
+            var data = [];
+            var resultnum=[];
+            var resultelev=[];
+
+            var i =0;
+            var j =0;
+            var m=0;
+            var d=0;
+
+            num='{{number}}'.split(',');
+            for(i=0; i<num.length; i++){
+                resultnum.push(num[i])
+            }
+            console.log(typeof(resultnum));
+            
+            elev= '{{elev}}'.split(',');
+            for(j=0; j<elev.length; j++){
+                resultelev.push(parseFloat(elev[j]))
+            }
+            console.log(typeof(resultelev));
+
+            console.log ('numlength',resultnum.length)
+            console.log('elevlength',resultelev.length)
+
+            
+            while(m <= resultnum.length && d<=resultelev.length){
+                 data.push([resultnum[m] ,resultelev[d]]);
+                 m++;
+                 d++;
+            }
+            return data;
+        }())
+
+    }]
+});
+
+</script>
+
+
+</body>
+</html>

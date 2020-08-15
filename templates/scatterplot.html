@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PieHighChart</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+<body>
+<h2>Earthquake information retrieval system</h2>
+
+<hr>
+<h2>1001745502</h2>
+    <h2>Aditee Dakhane</h2>
+    <br>
+
+
+ <form action="/scatterplot" method="get">
+ Display magnitude vs depth
+  <input type="submit" value="submit">
+  <figure class="highcharts-figure">
+    <div id="container"></div>
+</figure>
+</form>
+
+<br>
+<br>
+<hr>
+
+
+<script>
+    Highcharts.chart('container', {
+    chart: {
+        type: 'scatter',
+        zoomType: 'xy'
+    },
+    title: {
+        text: 'Magnitude VS Depth'
+    },
+    subtitle: {
+        text: 'Earthquakes'
+    },
+    xAxis: {
+        title: {
+            enabled: true,
+            text: 'Magnitude'
+        },
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true
+    },
+    yAxis: {
+        title: {
+            text: 'Depth'
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        floating: true,
+        backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
+        borderWidth: 1
+    },
+    plotOptions: {
+        scatter: {
+            marker: {
+                radius: 5,
+                states: {
+                    hover: {
+                        enabled: true,
+                        lineColor: 'rgb(100,100,100)'
+                    }
+                }
+            },
+            states: {
+                hover: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<b>{series.name}</b><br>',
+                pointFormat: '{point.x} , {point.y} '
+            }
+        }
+    },
+    series: [{
+        name: 'Quakes',
+        color: 'rgba(223, 83, 83, .5)',
+        data: (function () {
+            var data = [];
+            var resultmag=[];
+            var resultdepth=[];
+
+            var i =0;
+            var j =0;
+            var m=0;
+            var d=0;
+
+            mag='{{mag}}'.split(',');
+            for(i=0; i<mag.length; i++){
+                resultmag.push(parseFloat(mag[i]))
+            }
+            console.log(typeof(resultmag));
+            
+            depth= '{{depth}}'.split(',');
+            for(j=0; j<depth.length; j++){
+                resultdepth.push(parseFloat(depth[j]))
+            }
+            console.log(typeof(resultdepth));
+
+            console.log ('depthlength',resultdepth.length)
+            console.log('maglength',resultmag.length)
+
+            
+            while(m <= resultmag.length && d<=resultdepth.length){
+                 data.push([parseFloat(resultmag[m]) ,parseFloat(resultdepth[d])]);
+                 m++;
+                 d++;
+            }
+            return data;
+        }())
+
+    }]
+});
+
+</script>
+
+</body>
+</html>

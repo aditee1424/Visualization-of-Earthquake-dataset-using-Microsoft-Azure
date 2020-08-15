@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PieHighChart</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+<h2>Earthquake information retrieval system</h2>
+
+<hr>
+<h2>1001745502</h2>
+    <h2>Aditee Dakhane</h2>
+    <br>
+
+
+ <form action="/pieQ" method="get">
+ Show Pie Chart for Population Range
+ Range1 (Lowest) <input type="number" name="range1" maxlength="200" width="60" step="any" value="200000"> 
+Range2 (Highest) <input type="number" name="range2" maxlength="200" width="60" step="any" value="700000"> 
+year <input type="number" name="year" maxlength="200" width="60">
+  <input type="submit" value="submit">
+  <div id="piechart" style="width: 900px; height: 500px;"></div>
+</figure>
+</form>
+<table border = 1>
+    <thead>
+    <th>STATE</th>
+    <th>YEAR</th>
+
+    </thead>
+<!--database rows are fetched-->
+         {% for r in rows %}
+          <tr>
+           
+            <td>{{r[0]}}</td>
+            <td>{{r[1]}}</td>
+         </tr>
+         {% endfor %}
+      </table>
+      <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+  
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'states');
+            data.addColumn('number', 'population');
+            data.addRows(function () {
+            var data = [];
+            var resultst=[];
+            var resultyr=[];
+
+            var i =0;
+            var j =0;
+            var m=0;
+            var d=0;
+            var yr="";
+
+            st='{{st}}'.split(',');
+            for(i=0; i<st.length; i++){
+                resultst.push(st[i])
+            }
+            console.log(typeof(resultst));
+            
+            yr= '{{yr}}'.split(',');
+            
+            for(j=0; j<yr.length; j++){
+                resultyr.push(parseFloat(yr[j] || 0))
+            }
+            console.log(resultyr);
+
+            console.log ('yrlength',resultyr.length)
+            console.log('stlength',resultst.length)
+
+            
+            while(m < resultst.length && d< resultyr.length){
+                console.log('state',resultst[m])
+                console.log('pop',resultyr[d])
+                 data.push([resultst[m] ,resultyr[d]]);
+                 m++;
+                 d++;
+            }
+            return data;
+        }());
+  
+          var options = {
+            title: 'My Daily Activities'
+          };
+  
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  
+          chart.draw(data, options);
+        }
+      </script>
+</body>
+</html>
