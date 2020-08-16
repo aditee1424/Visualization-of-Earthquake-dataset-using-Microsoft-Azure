@@ -12,15 +12,15 @@ import random
 
 
 app = Flask(__name__, template_folder="templates")
-myHostname = "adtredis.redis.cache.windows.net"
-myPassword = "zch+S6ZBSQfYS2HKLzIdfU0473KK1RRdfguLv6KmEAw="
+myHostname = ""
+myPassword = ""
 r = redis.StrictRedis(host=myHostname, port=6380, password=myPassword, ssl=True)
 
 
-server = 'tcp:earthdbserver.database.windows.net'
-database = 'EQ'
-username = 'aditee'
-password = 'Adt1411#'
+server = ''
+database = ''
+username = ''
+password = ''
  
 @app.route("/")
 def hello():
